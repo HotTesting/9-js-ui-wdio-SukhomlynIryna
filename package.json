@@ -1,15 +1,28 @@
 {
-  "name": "9-js-ui-wdio-sukhomlyniryna",
+  "name": "sukhomlyniryna",
   "version": "1.0.0",
   "private": true,
-  "description": "demo Project"
+  "description": "demo Project",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "wdio run wdio.conf.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/StartITProtractorJS/9-js-ui-wdio-SukhomlynIryna.git"
   },
   "author": "Sukhomlyn Iryna <sukhomlyniryna@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@wdio/cli": "^5.16.9",
+    "@wdio/local-runner": "^5.16.9",
+    "@wdio/mocha-framework": "^5.16.5",
+    "@wdio/spec-reporter": "^5.16.5",
+    "@wdio/sync": "^5.16.9",
+    "chromedriver": "^78.0.1",
+    "wdio-chromedriver-service": "^5.0.2"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.1.2"
+  }
 }
