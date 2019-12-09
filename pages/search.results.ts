@@ -22,7 +22,7 @@ export class SearchResultsPage extends BasePage {
         return this.serchResultsBox().$(`=${creteria}`)
     }
 
-    orderByCreteria(creteria){
+    orderByCreteria(creteria) {
         this.orderCreteriaButton(creteria).click()
     }
 
@@ -32,6 +32,22 @@ export class SearchResultsPage extends BasePage {
 
     getNoSearchResultsAlert(): string {
         return this.noSearchResultsMessage().getText()
+    }
+
+    getProductPrices(): number[] {
+        const productPrices = []
+        this.searchResultItems().forEach(function (item) {
+            productPrices.push(Number(item.getAttribute('data-price')))
+        })
+        return productPrices
+    }
+
+    getProductNames(): string[] {
+        const productNames = []
+        searchResultsPage.searchResultItems().forEach(function (item) {
+            productNames.push(item.$('.name').getText())
+        })
+        return productNames
     }
 }
 export const searchResultsPage = new SearchResultsPage()
