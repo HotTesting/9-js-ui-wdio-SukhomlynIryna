@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { App } from '../pages/application'
+import { App } from '../../pages/application'
 
 describe('Cart', function () {
     it('can add item', function () {
