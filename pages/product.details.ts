@@ -1,5 +1,5 @@
-import { BasePage } from './base';
-import { ProductDetailsModel } from '../objectModels/productDetails';
+import { BasePage } from './base'
+import { ProductDetailsModel } from '../objectModels/product.details';
 
 export class ProductDetailsPage extends BasePage {
     public getProductPrice(): number {
@@ -11,7 +11,7 @@ export class ProductDetailsPage extends BasePage {
         return $('h1.title').getText()
     }
 
-    getProductDetails(): ProductDetailsModel {
+    public getProductDetails(): ProductDetailsModel {
         const productDetails = new ProductDetailsModel()
 
         productDetails.name = this.getProductName()
@@ -20,9 +20,13 @@ export class ProductDetailsPage extends BasePage {
         return productDetails
     }
 
-    addToCart() {
+    public addToCart() {
         $('button[name="add_cart_product"]').click()
         browser.pause(3000);
+    }
+
+    public isAddToCartButtonEnabled() {
+        return $('button[name="add_cart_product"]').isEnabled()
     }
 }
 

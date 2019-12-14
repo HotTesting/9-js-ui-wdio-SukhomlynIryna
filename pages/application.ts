@@ -1,9 +1,9 @@
 import { productDetails } from './product.details'
-import { Checkout } from './checkout';
+import { checkoutPage } from './checkout';
 
 export class Application {
     product = productDetails
-    checkout = Checkout
+    checkout = checkoutPage
 }
 
 export const App: Application = new Application()

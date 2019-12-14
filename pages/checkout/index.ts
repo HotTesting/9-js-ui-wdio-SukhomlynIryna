@@ -10,11 +10,11 @@ export class CheckoutPage extends BasePage {
 
     private get noItemsLabel() { return $('.cart.wrapper em') }
 
-    open() {
+    public open() {
         super.open('/checkout')
     }
 
-    isNoItemsInCart() {
+    public isNoItemsInCart() {
         if (this.noItemsLabel.isDisplayed()) {
             return this.noItemsLabel.getText()
                 .includes('There are no items in your cart.')
@@ -23,18 +23,13 @@ export class CheckoutPage extends BasePage {
         }
     }
 
-    isItemsInCart() {
+    public isItemsInCart() {
         return !this.isNoItemsInCart()
     }
 
+
     public getTotalPrice(): number {
         return parseFloat($('tfoot .formatted-value').getText().replace("$", ""))
-    }
-
-
-    public confirmOrder() {
-        $('[name="confirm_order"]').click()
-
     }
 }
 

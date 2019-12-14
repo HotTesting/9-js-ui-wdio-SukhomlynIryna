@@ -5,13 +5,18 @@ export class ShoppingCart {
 
     public get items(): Item[] {
         return this.container.$$('table.items tr.item')
-        .map(item => {
-            return new Item(item)
-        })
+            .map(item => {
+                return new Item(item)
+            })
     }
 
     public getItemByName(name: string): Item {
         return this.items.find(item => item.getProductName().includes(name))
+    }
+
+
+    public getQuantityOfProduct(name: string): number {
+        return this.getItemByName(name).getProductQuantity() 
     }
 
 }
@@ -30,5 +35,9 @@ class Item {
     public getProductPrice(): number {
         return parseFloat(this.container.getAttribute('data-price'))
     }
-    
+
+    public getProductQuantity(): number {
+        return Number(this.container.getAttribute('data-quantity'))
+    }
+
 }

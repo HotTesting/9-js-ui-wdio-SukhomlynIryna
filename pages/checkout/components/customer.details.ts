@@ -4,39 +4,39 @@ export class CustomerDetailsComponent {
         return $('#box-checkout-customer')
     }
 
-    public get companyField() {
+    private get companyField() {
         return this.rootElement.$('input[name="company"]')
     }
 
-    public get taxIdField() {
+    private get taxIdField() {
         return this.rootElement.$('input[name="tax_id"]')
     }
 
-    public get firstNameField() {
+    private get firstNameField() {
         return this.rootElement.$('input[name="firstname"]')
     }
 
-    public get lastNameField() {
+    private get lastNameField() {
         return this.rootElement.$('input[name="lastname"]')
     }
 
-    public get address1Field() {
+    private get address1Field() {
         return this.rootElement.$('input[name="address1"]')
     }
 
-    public get postalCodeField() {
+    private get postalCodeField() {
         return this.rootElement.$('input[name="postcode"]')
     }
 
-    public get cityField() {
+    private get cityField() {
         return this.rootElement.$('input[name="city"]')
     }
 
-    public get emailField() {
+    private get emailField() {
         return this.rootElement.$('input[name="email"]')
     }
 
-    public get phoneField() {
+    private get phoneField() {
         return this.rootElement.$('input[name="phone"]')
     }
 

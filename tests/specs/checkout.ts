@@ -27,7 +27,7 @@ describe('Cart', function () {
         console.log('productNameInCart', productNameInCart)
         console.log('productPriceInCart', productPriceInCart)
 
-        expect(productNameInCart).to.equal(productDetails.name)
+        expect(productNameInCart).to.eql(productDetails.name)
         expect(productPriceInCart).to.equal(productDetails.price)
     })
 })
