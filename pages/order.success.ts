@@ -11,7 +11,6 @@ export class OrderSuccessPage extends BasePage {
     public getAlert(): string {
         return this.title.getText()
     }
-
 }
 
 export const orderSuccessPage = new OrderSuccessPage()

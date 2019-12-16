@@ -16,9 +16,16 @@ export class ShoppingCart {
 
 
     public getQuantityOfProduct(name: string): number {
-        return this.getItemByName(name).getProductQuantity() 
+        return this.getItemByName(name).getProductQuantity()
     }
 
+    public getTotalProductsQuantity(): number {
+        let productsQuantities = 0
+        this.items.forEach(item => {
+            productsQuantities = productsQuantities + item.getProductQuantity()
+        })
+        return productsQuantities
+    }
 }
 
 class Item {
@@ -39,5 +46,4 @@ class Item {
     public getProductQuantity(): number {
         return Number(this.container.getAttribute('data-quantity'))
     }
-
 }

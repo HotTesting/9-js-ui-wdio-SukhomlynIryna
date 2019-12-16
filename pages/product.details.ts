@@ -28,6 +28,17 @@ export class ProductDetailsPage extends BasePage {
     public isAddToCartButtonEnabled() {
         return $('button[name="add_cart_product"]').isEnabled()
     }
+
+    public selectDuckSize(size) {
+        $('.select-wrapper').click()
+        $(`.select-wrapper [value="${size}"]`).click()
+    }
+
+    public slectDuckSizeAndAddToCart(key) {
+        console.log(`${key} duck is added to card`)
+        productDetails.selectDuckSize(key)
+        productDetails.addToCart()
+    }
 }
 
 export const productDetails = new ProductDetailsPage()

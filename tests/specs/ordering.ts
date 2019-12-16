@@ -23,10 +23,9 @@ describe("Order", function () {
         "tax_id": "123",
     }
 
-    const redDuckPrice = 20
+    const redDuckPrice = 20, blueDuckPrice = 16
 
     it("is successful for regular item", function () {
-
         productDetails.open('/rubber-ducks-c-1/red-duck-p-3')
         productDetails.addToCart()
         checkoutPage.open()
@@ -44,10 +43,9 @@ describe("Order", function () {
     });
 
     it("is successful for discounted item", function () {
-        const blueDuckPrice = 16
-        const orderSummary = { "subtotal": 16, "deliveryFee": 5, "paymentSum": 21 }
+        const orderSummary = { "subtotal": blueDuckPrice, "deliveryFee": 5, "paymentSum": 21 }
 
-        productDetails.open('/rubber-ducks-c-1/blue-duck-p-4 ')
+        productDetails.open('/rubber-ducks-c-1/blue-duck-p-4')
         productDetails.addToCart()
         checkoutPage.open()
 
@@ -67,7 +65,7 @@ describe("Order", function () {
     });
 
     it("is successful for sold out item", function () {             //test fails because sold product can be added to cart 
-        productDetails.open('/rubber-ducks-c-1/purple-duck-p-5 ')
+        productDetails.open('/rubber-ducks-c-1/purple-duck-p-5')
 
         expect(productDetails.isAddToCartButtonEnabled()).to.be.false
 
@@ -78,7 +76,7 @@ describe("Order", function () {
     });
 
     it("is successful for 2 same items in card", function () {
-        const orderSummary = { "subtotal": 40, "deliveryFee": 5, "paymentSum": 45 }
+        const orderSummary = { "subtotal": redDuckPrice *2, "deliveryFee": 5, "paymentSum": 45 }
 
         productDetails.open('/rubber-ducks-c-1/red-duck-p-3')
         productDetails.addToCart()
@@ -87,7 +85,7 @@ describe("Order", function () {
         checkoutPage.open()
 
         expect(checkoutPage.shoppingCart.getQuantityOfProduct('Red Duck')).to.equal(2)
-        expect(checkoutPage.getTotalPrice()).to.equal(redDuckPrice * 2, 'The total price is incorrect')
+        expect(checkoutPage.getTotalPrice()).to.equal(orderSummary.subtotal, 'The total price is incorrect')
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
@@ -101,13 +99,52 @@ describe("Order", function () {
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
-    xit("is successful for 2 different items in card", function () {
-        throw new Error("NOT IMPLEMENTED");
+    it("is successful for 2 different items in card", function () {
+        const orderSummary = { "subtotal": redDuckPrice + blueDuckPrice, "deliveryFee": 5, "paymentSum": 41 }
+
+        productDetails.open('/rubber-ducks-c-1/red-duck-p-3')
+        productDetails.addToCart()
+        browser.pause(1000)
+        productDetails.open('/rubber-ducks-c-1/blue-duck-p-4')
+        productDetails.addToCart()
+        checkoutPage.open()
+
+        expect(checkoutPage.shoppingCart.getTotalProductsQuantity()).to.equal(2)
+        expect(checkoutPage.getTotalPrice()).to.equal(orderSummary.subtotal, 'The total price is incorrect')
+
+        checkoutPage.customerDetails.fillForm(customerDetails)
+        checkoutPage.customerDetails.saveChanges()
+        browser.pause(3000)
+
+        expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
+
+        checkoutPage.orderSummary.confirmOrder()
+        browser.pause(3000)
+
+        expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
-    xit("is successful for items with parameters", function () {
-        // http://ip-5236.sunline.net.ua:38015/rubber-ducks-c-1/premium-ducks-c-2/vip-yellow-duck-p-6 
-        // this duck has 3 sizes - small, medium, large. Each size has own price. Verify that price calculated correctly
-        throw new Error("NOT IMPLEMENTED");
+    it("is successful for items with parameters", function () {
+        const orderSummary = { "subtotal": 447, "deliveryFee": 5, "paymentSum": 452 }
+        let yellowDucksList = new Map([[99, 'Small'], [149, 'Medium'], [199, 'Large']])
+
+        productDetails.open('/rubber-ducks-c-1/premium-ducks-c-2/vip-yellow-duck-p-6')
+
+
+        yellowDucksList.forEach(productDetails.slectDuckSizeAndAddToCart)
+        checkoutPage.open()
+        expect(checkoutPage.shoppingCart.getTotalProductsQuantity()).to.equal(3)
+        expect(checkoutPage.getTotalPrice()).to.equal(orderSummary.subtotal, 'The total price is incorrect')
+
+        checkoutPage.customerDetails.fillForm(customerDetails)
+        checkoutPage.customerDetails.saveChanges()
+        browser.pause(3000)
+
+        expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
+
+        checkoutPage.orderSummary.confirmOrder()
+        browser.pause(3000)
+
+        expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 });
