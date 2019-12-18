@@ -27,11 +27,13 @@ export class ContactUsForm extends BasePage {
     }
 
     getAlert(): string {
+        console.log('[Get] alert that email was saved ');
         const alert = $('.alert-success')
         return alert.getText()
     }
 
     fillForm(name, email, subject, message) {
+        console.log('[Enter] contacts ');
         this.nameField().setValue(name)
         this.emailField().setValue(email)
         this.subjectField().setValue(subject)

@@ -9,6 +9,7 @@ class OrderSummaryComponent {
     public getOrderSummary(): orderSummaryModel {
         const orderSummary = new orderSummaryModel()
 
+        console.log('[Get] the order summary ');
         orderSummary.subtotal = Number(this.subtotal.getText().replace('$',''))
         orderSummary.deliveryFee = Number(this.deliveryFee.getText().replace('$',''))
         orderSummary.paymentSum = Number(this.paymentSum.getText().replace('$',''))
@@ -17,6 +18,7 @@ class OrderSummaryComponent {
     }
 
     public confirmOrder() {
+        console.log('[Click] the confirm order button ');
         this.rootElement.$('[name="confirm_order"]').click()
     }
 }

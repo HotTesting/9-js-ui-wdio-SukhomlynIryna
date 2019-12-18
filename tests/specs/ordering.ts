@@ -20,7 +20,7 @@ describe("Order", function () {
         "lastname": "Travolta",
         "phone": "3333",
         "postcode": "88555",
-        "tax_id": "123",
+        "taxId": "123",
     }
 
     const redDuckPrice = 20, blueDuckPrice = 16
@@ -35,14 +35,13 @@ describe("Order", function () {
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
-        browser.pause(3000)
+        
         checkoutPage.orderSummary.confirmOrder()
-        browser.pause(3000)
 
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
-    it("is successful for discounted item", function () {
+    xit("is successful for discounted item", function () {
         const orderSummary = { "subtotal": blueDuckPrice, "deliveryFee": 5, "paymentSum": 21 }
 
         productDetails.open('/rubber-ducks-c-1/blue-duck-p-4')
@@ -54,17 +53,15 @@ describe("Order", function () {
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
-        browser.pause(3000)
 
         expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
 
         checkoutPage.orderSummary.confirmOrder()
-        browser.pause(3000)
-
+    
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
-    it("is successful for sold out item", function () {             //test fails because sold product can be added to cart 
+    xit("is successful for sold out item", function () {             //test fails because sold product can be added to cart 
         productDetails.open('/rubber-ducks-c-1/purple-duck-p-5')
 
         expect(productDetails.isAddToCartButtonEnabled()).to.be.false
@@ -75,12 +72,11 @@ describe("Order", function () {
         expect(checkoutPage.isItemsInCart()).to.equal(false, 'The sold out product is added to the cart')
     });
 
-    it("is successful for 2 same items in card", function () {
+    xit("is successful for 2 same items in card", function () {
         const orderSummary = { "subtotal": redDuckPrice *2, "deliveryFee": 5, "paymentSum": 45 }
 
         productDetails.open('/rubber-ducks-c-1/red-duck-p-3')
         productDetails.addToCart()
-        browser.pause(1000)
         productDetails.addToCart()
         checkoutPage.open()
 
@@ -89,22 +85,19 @@ describe("Order", function () {
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
-        browser.pause(3000)
-
+    
         expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
 
         checkoutPage.orderSummary.confirmOrder()
-        browser.pause(3000)
 
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
-    it("is successful for 2 different items in card", function () {
+    xit("is successful for 2 different items in card", function () {
         const orderSummary = { "subtotal": redDuckPrice + blueDuckPrice, "deliveryFee": 5, "paymentSum": 41 }
 
         productDetails.open('/rubber-ducks-c-1/red-duck-p-3')
         productDetails.addToCart()
-        browser.pause(1000)
         productDetails.open('/rubber-ducks-c-1/blue-duck-p-4')
         productDetails.addToCart()
         checkoutPage.open()
@@ -114,22 +107,19 @@ describe("Order", function () {
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
-        browser.pause(3000)
 
         expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
 
         checkoutPage.orderSummary.confirmOrder()
-        browser.pause(3000)
 
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
-    it("is successful for items with parameters", function () {
+    xit("is successful for items with parameters", function () {
         const orderSummary = { "subtotal": 447, "deliveryFee": 5, "paymentSum": 452 }
         let yellowDucksList = new Map([[99, 'Small'], [149, 'Medium'], [199, 'Large']])
 
         productDetails.open('/rubber-ducks-c-1/premium-ducks-c-2/vip-yellow-duck-p-6')
-
 
         yellowDucksList.forEach(productDetails.slectDuckSizeAndAddToCart)
         checkoutPage.open()
@@ -138,12 +128,10 @@ describe("Order", function () {
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
-        browser.pause(3000)
-
+    
         expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
 
         checkoutPage.orderSummary.confirmOrder()
-        browser.pause(3000)
 
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });

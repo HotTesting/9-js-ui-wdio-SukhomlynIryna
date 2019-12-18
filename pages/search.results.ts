@@ -35,6 +35,7 @@ export class SearchResultsPage extends BasePage {
     }
 
     getProductPrices(): number[] {
+        console.log('[Get] produts prices ');
         const productPrices = []
         this.searchResultItems().forEach(function (item) {
             productPrices.push(Number(item.getAttribute('data-price')))
@@ -43,6 +44,7 @@ export class SearchResultsPage extends BasePage {
     }
 
     getProductNames(): string[] {
+        console.log('[Get] produts names ');
         const productNames = []
         searchResultsPage.searchResultItems().forEach(function (item) {
             productNames.push(item.$('.name').getText())

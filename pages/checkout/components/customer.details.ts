@@ -40,11 +40,19 @@ export class CustomerDetailsComponent {
         return this.rootElement.$('input[name="phone"]')
     }
 
+    public get saveChangesButton() {
+        return $('[name="save_customer_details"]')
+    }
+
     public saveChanges() {
-        $('[name="save_customer_details"]').click()
+        console.log('[Save] customer details chnages ');
+        this.saveChangesButton.click()
+        this.saveChangesButton.waitForEnabled(1000, true, 'The chnages were not saved')
     }
 
     public fillForm(customerDetails) {
+        console.log('[Enter] customer details form ');
+        
         this.companyField.setValue(customerDetails.company)
         this.taxIdField.setValue(customerDetails.taxId)
         this.firstNameField.setValue(customerDetails.firstname)
