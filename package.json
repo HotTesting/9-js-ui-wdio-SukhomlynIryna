@@ -2,7 +2,7 @@
   "name": "sukhomlyniryna",
   "version": "1.0.0",
   "private": true,
-  "description": "demo Project",
+  "description": "E2E tests foe online duck store",
   "scripts": {
     "test": "wdio run wdio.conf.js"
   },
