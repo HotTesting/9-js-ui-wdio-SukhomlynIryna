@@ -29,6 +29,7 @@ export class ContactUsForm extends BasePage {
     getAlert(): string {
         console.log('[Get] alert that email was saved ');
         const alert = $('.alert-success')
+        alert.waitForDisplayed(null, null, 'Alext is not displayed')
         return alert.getText()
     }
 

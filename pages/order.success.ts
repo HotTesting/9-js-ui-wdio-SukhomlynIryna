@@ -10,7 +10,7 @@ export class OrderSuccessPage extends BasePage {
 
     public getAlert(): string {
         console.log('[Get] alert on order success page ');
-        this.title.waitForDisplayed(1000)
+        this.title.waitForDisplayed(null, null, 'The order success alert is not displayed')
         return this.title.getText()
     }
 }

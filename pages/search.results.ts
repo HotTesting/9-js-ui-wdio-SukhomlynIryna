@@ -23,6 +23,7 @@ export class SearchResultsPage extends BasePage {
     }
 
     orderByCreteria(creteria) {
+        this.orderCreteriaButton(creteria).waitForDisplayed(null, null, 'The search result list is not displayed')
         this.orderCreteriaButton(creteria).click()
     }
 

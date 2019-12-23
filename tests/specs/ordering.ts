@@ -11,15 +11,14 @@ describe("Order", function () {
 
     let customerDetails = {
         "address1": "New York",
-        "address2": "New York New York",
         "city": "Manhattan",
         "company": "NASA",
         "country_code": "UA",
-        "email": "sua@gmail.com",
-        "firstname": "John",
+        "email": "suau@gmail.com",
+        "firstname": "Johnn",
         "lastname": "Travolta",
-        "phone": "3333",
-        "postcode": "88555",
+        "phone": "+380950958999",
+        "postcode": "01001",
         "taxId": "123",
     }
 
@@ -35,13 +34,15 @@ describe("Order", function () {
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
-        
+
+        checkoutPage.customerDetails.saveChangesButton.waitForEnabled(null, true, "The changes were not saved")
+
         checkoutPage.orderSummary.confirmOrder()
 
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
-    xit("is successful for discounted item", function () {
+    it("is successful for discounted item", function () {
         const orderSummary = { "subtotal": blueDuckPrice, "deliveryFee": 5, "paymentSum": 21 }
 
         productDetails.open('/rubber-ducks-c-1/blue-duck-p-4')
@@ -56,8 +57,9 @@ describe("Order", function () {
 
         expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
 
+        checkoutPage.customerDetails.saveChangesButton.waitForEnabled(null, true, "The changes were not saved")
         checkoutPage.orderSummary.confirmOrder()
-    
+
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
@@ -72,8 +74,8 @@ describe("Order", function () {
         expect(checkoutPage.isItemsInCart()).to.equal(false, 'The sold out product is added to the cart')
     });
 
-    xit("is successful for 2 same items in card", function () {
-        const orderSummary = { "subtotal": redDuckPrice *2, "deliveryFee": 5, "paymentSum": 45 }
+    it("is successful for 2 same items in card", function () {
+        const orderSummary = { "subtotal": redDuckPrice * 2, "deliveryFee": 5, "paymentSum": 45 }
 
         productDetails.open('/rubber-ducks-c-1/red-duck-p-3')
         productDetails.addToCart()
@@ -85,7 +87,8 @@ describe("Order", function () {
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
-    
+        checkoutPage.customerDetails.saveChangesButton.waitForEnabled(null, true, "The changes were not saved")
+
         expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
 
         checkoutPage.orderSummary.confirmOrder()
@@ -93,7 +96,7 @@ describe("Order", function () {
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
-    xit("is successful for 2 different items in card", function () {
+    it("is successful for 2 different items in card", function () {
         const orderSummary = { "subtotal": redDuckPrice + blueDuckPrice, "deliveryFee": 5, "paymentSum": 41 }
 
         productDetails.open('/rubber-ducks-c-1/red-duck-p-3')
@@ -107,6 +110,7 @@ describe("Order", function () {
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
+        checkoutPage.customerDetails.saveChangesButton.waitForEnabled(null, true, "The changes were not saved")
 
         expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
 
@@ -115,7 +119,7 @@ describe("Order", function () {
         expect(orderSuccessPage.getAlert()).to.contain('is successfully completed!', 'The alert message is incorrect')
     });
 
-    xit("is successful for items with parameters", function () {
+    it("is successful for items with parameters", function () {
         const orderSummary = { "subtotal": 447, "deliveryFee": 5, "paymentSum": 452 }
         let yellowDucksList = new Map([[99, 'Small'], [149, 'Medium'], [199, 'Large']])
 
@@ -128,7 +132,8 @@ describe("Order", function () {
 
         checkoutPage.customerDetails.fillForm(customerDetails)
         checkoutPage.customerDetails.saveChanges()
-    
+        checkoutPage.customerDetails.saveChangesButton.waitForEnabled(null, true, "The changes were not saved")
+
         expect(checkoutPage.orderSummary.getOrderSummary()).to.deep.include(orderSummary, 'The order summary is invalid')
 
         checkoutPage.orderSummary.confirmOrder()

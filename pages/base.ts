@@ -8,7 +8,6 @@ export class BasePage {
 
         $('[type=search]').setValue(product)
         browser.keys('Enter')
-        browser.pause(1000)
     }
 
     public open(path: string) {

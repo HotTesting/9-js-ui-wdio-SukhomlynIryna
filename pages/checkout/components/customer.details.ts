@@ -47,15 +47,15 @@ export class CustomerDetailsComponent {
     public saveChanges() {
         console.log('[Save] customer details chnages ');
         this.saveChangesButton.click()
-        this.saveChangesButton.waitForEnabled(1000, true, 'The chnages were not saved')
     }
 
     public fillForm(customerDetails) {
         console.log('[Enter] customer details form ');
-        
+
         this.companyField.setValue(customerDetails.company)
         this.taxIdField.setValue(customerDetails.taxId)
         this.firstNameField.setValue(customerDetails.firstname)
+        this.firstNameField.$('[value]').waitForExist(null,null, 'The value has been set')    // I can't find out by first test fails because this field is not set   
         this.lastNameField.setValue(customerDetails.lastname)
         this.address1Field.setValue(customerDetails.address1)
         this.postalCodeField.setValue(customerDetails.postcode)
